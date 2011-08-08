@@ -65,7 +65,6 @@ public class CommonResource {
 
 
     protected User getUser(String username) {
-        Repository repository = getRepository();
         UserLogin userLogin = null;
         User user = null;
 

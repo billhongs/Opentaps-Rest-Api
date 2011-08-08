@@ -1,0 +1,2 @@
+org.opentaps.module.ws.rest.resources.party.PartiesResource
+org.opentaps.module.ws.rest.resources.product.ProductsResource

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<ofbiz-component name="rest-api"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="jar" location="build/lib/*"/>
+    <classpath type="jar" location="lib/*"/>
+    <classpath type="jar" location="lib/dep/*"/>
+    <classpath type="jar" location="lib/ext/*"/>
+    <classpath type="dir" location="script"/>
+    <classpath type="dir" location="config"/>
+    
+    <!-- seed data which will be loaded on "ant run-install" and "ant run-install-seed" -->
+
+
+    <!-- demo data which will be loaded only on "ant run-install" -->
+
+    <!-- third party inventory demo -->
+
+
+    <webapp name="rest-api"
+        title="Rest Api"
+        server="default-server"
+        location="webapp/rest-api"
+        mount-point="/rest"
+        base-permission="REST"
+        app-bar-display="false"/>
+
+
+</ofbiz-component>

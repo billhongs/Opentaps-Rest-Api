@@ -80,7 +80,7 @@ public class ProductsResource extends CommonResource {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
 
-        login(username, password, infrastructure);
+        login(username, password);
 
         CreateProductService createProductService = new CreateProductService();
         createProductService.setInProductId(repository.getNextSeqId(new Product()));

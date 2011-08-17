@@ -1,4 +1,4 @@
-package org.opentaps.module.ws.rest.resources.lead;
+package org.opentaps.module.ws.rest.resources.party;
 
 import javolution.util.FastList;
 import org.apache.wink.common.annotations.Asset;

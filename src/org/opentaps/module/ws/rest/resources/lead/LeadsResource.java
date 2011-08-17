@@ -1,33 +1,25 @@
 package org.opentaps.module.ws.rest.resources.lead;
 
 import org.ofbiz.base.util.Debug;
-//import org.ofbiz.base.util.UtilMisc;
-//import org.ofbiz.base.util.UtilValidate;
-
-//import org.ofbiz.entity.GenericDelegator;
-//import org.ofbiz.entity.GenericValue;
-//import org.ofbiz.service.GenericDispatcher;
-//import org.ofbiz.service.LocalDispatcher;
-
-//import org.opentaps.base.entities.UserLogin;
-//import org.opentaps.base.services.CreateProductService;
-//import org.opentaps.base.services.UserLoginService;
-//import org.opentaps.domain.product.Product;
-//import org.opentaps.foundation.entity.EntityNotFoundException;
-//import org.opentaps.foundation.infrastructure.Infrastructure;
-//import org.opentaps.foundation.infrastructure.User;
-//import org.opentaps.foundation.repository.RepositoryException;
-//import org.opentaps.foundation.repository.ofbiz.Repository;
-//import org.opentaps.foundation.service.ServiceException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.io.IOException;
 import java.net.URI;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 //import java.util.List;
 
 import org.apache.wink.common.annotations.Workspace;
 
+import org.opentaps.foundation.infrastructure.Infrastructure;
+import org.opentaps.foundation.infrastructure.InfrastructureException;
+import org.opentaps.foundation.infrastructure.User;
+import org.opentaps.foundation.service.ServiceException;
 import org.opentaps.module.ws.rest.resources.common.CommonResource;
+import org.opentaps.module.ws.rest.resources.common.ResponseAsset;
+import org.opentaps.module.ws.rest.resources.common.ResponseBean;
 
 
 @Path(LeadsResource.MAIN_URL)
@@ -37,6 +29,7 @@ public class LeadsResource extends CommonResource {
     private static String MODULE = LeadsResource.class.getName();
     public static final String MAIN_URL = "/leads";
 
+    @Context HttpHeaders requestHeaders;
 
     public LeadsResource() {
         super();
@@ -44,10 +37,24 @@ public class LeadsResource extends CommonResource {
 
 
     @GET
-    @Produces({MediaType.TEXT_PLAIN}) // MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML
-    public String getLeads() {
-        Debug.logInfo("AK47 - getLeads called", MODULE);
-        return "getLeads - Test response";
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    public Response getLeads() {
+        if (!checkAccess(requestHeaders)) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(100000);
+
+        String result = "getLeads - Test response. Authorized: " + randomInt;
+        ResponseBean response = new ResponseBean();
+        response.setMessage("Everything is OK.");
+
+        ResponseAsset responseAsset = new ResponseAsset(response);
+
+//        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(responseAsset).build();
     }
 
 
@@ -55,6 +62,12 @@ public class LeadsResource extends CommonResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
     public Response createLead(LeadAsset asset, @Context UriInfo uriInfo) {
+        Debug.logInfo("AK47 - createLead called: " + requestHeaders, MODULE);
+
+        if (!checkAccess(requestHeaders)) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
         LeadBean lead = asset.getLead();
 
         if (lead == null) {
@@ -62,14 +75,23 @@ public class LeadsResource extends CommonResource {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
 
-        lead.setId("LEAD-123");
+//        Boolean login = login("APIF8C702B8", "33a41e802f428972a03107d392644713");
+//        Debug.logInfo("User login: " + login, MODULE);
+//        user = getUser("APIF8C702B8");
 
-        URI location = uriInfo.getAbsolutePathBuilder().segment(lead.getId()).build();
+        try {
+            LeadsServices leadsServices = new LeadsServices(infrastructure, user, Locale.getDefault());
+            leadsServices.putLead(lead);
+        } catch (ServiceException e) {
+            Debug.logError("Creating lead failed: " + e.getMessage(), "LeadsResource");
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
 
-//        return Response.status(Response.Status.CREATED).entity(asset).location(location)
-//            .tag(new EntityTag(String.valueOf(lead.hashCode()))).build();
+        Debug.logInfo("AK47 - lead ID: " + lead.getId(), MODULE);
 
-        return Response.status(Response.Status.CREATED).location(location)
+//        URI location = uriInfo.getAbsolutePathBuilder().segment(lead.getId()).build();
+
+        return Response.status(Response.Status.CREATED).entity(asset) // .location(location)
             .tag(new EntityTag(String.valueOf(lead.hashCode()))).build();
     }
 

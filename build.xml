@@ -58,6 +58,11 @@
          It would NOT work if you checked it out somewhere else and symlinked to it in your opentaps/ directory.
          If you experience build problems, put the full path here -->
         <property name="ofbiz.dir" value="../../"/> 
+        <property name="webapp.dir" value="webapp/${name}/WEB-INF"/>
+
+        <tstamp>
+            <format property="build.id" pattern="ddMMyyyyHHmm" />
+        </tstamp>
     </target>
 
     <target name="classpath">
@@ -105,6 +110,10 @@
 
     <target name="clean-lib" depends="init">
         <delete dir="${build.dir}/lib"/>
+
+        <delete>
+            <fileset dir="${build.dir}/classes" includes="*.id"/>
+        </delete>
     </target>
 
     <target name="clean-gwt" depends="init">
@@ -147,6 +156,7 @@
     </target>
 
     <target name="jar" depends="classes">
+        <touch file="${build.dir}/classes/${build.id}.id"/>
         <jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>
     </target>
 
@@ -172,4 +182,15 @@
     </target>
 
     <target name="all" depends="jar,docs"/>
+
+    <target name="clean-hot-deploy">
+        <delete dir="${webapp.dir}"/>
+    </target>
+
+    <target name="hot-deploy" depends="jar">
+        <!--<jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>-->
+        <copy todir="${webapp.dir}/lib">
+            <fileset dir="${build.dir}/lib"/>
+        </copy>
+    </target>
 </project>

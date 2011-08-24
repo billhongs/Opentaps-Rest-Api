@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "DefectType", propOrder = {"id", "companyName", "firstName", "lastName", "description", "created", "author",
+@XmlType(name = "DefectType", propOrder = {"id", "companyName", "firstName", "lastName", "emailAddress", "description", "created", "author",
                                            "status", "severity", "assignedTo"})
 @XmlRootElement(name = "lead")
 public class LeadBean {
@@ -27,6 +27,8 @@ public class LeadBean {
     private String         firstName;
     @XmlElement(required = true)
     private String         lastName;
+    @XmlElement(required = true)
+    private String         emailAddress;
     @XmlElement(required = true)
     private String         description;
     @XmlElement(required = true)
@@ -58,18 +60,20 @@ public class LeadBean {
      * @param companyName Company name
      * @param firstName First name
      * @param lastName Last name
-     * @param description
+     * @param emailAddress E-mail address
+     * @param description Description
      * @param created
      * @param author
      * @param severity
      * @param status
-     * @param assignedTo
+     * @param assignedTo Responsible user
      * @param pathToAttachment
      */
     public LeadBean(String id,
                       String companyName,
                       String firstName,
                       String lastName,
+                      String emailAddress,
                       String description,
                       Date created,
                       String author,
@@ -82,6 +86,7 @@ public class LeadBean {
         this.companyName = companyName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.emailAddress = emailAddress;
         this.description = description;
         this.created = created;
         this.author = author;
@@ -201,8 +206,26 @@ public class LeadBean {
     }
 
     /**
-     * <code>description</code> getter.
+     * <code>emailAddress</code> getter.
      * 
+     * @return the emailAddress
+     */
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    /**
+     * <code>emailAddress</code> setter.
+     * 
+     * @param emailAddress the <code>emailAddress</code> to set
+     */
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    /**
+     * <code>description</code> getter.
+     *
      * @return the description
      */
     public String getDescription() {
@@ -211,7 +234,7 @@ public class LeadBean {
 
     /**
      * <code>description</code> setter.
-     * 
+     *
      * @param description the <code>description</code> to set
      */
     public void setDescription(String description) {

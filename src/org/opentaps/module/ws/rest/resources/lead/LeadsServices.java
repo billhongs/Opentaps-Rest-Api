@@ -2,12 +2,17 @@ package org.opentaps.module.ws.rest.resources.lead;
 
 import org.opentaps.domain.DomainService;
 
+import org.opentaps.base.constants.ContactMechPurposeTypeConstants;
 import org.opentaps.base.services.CrmsfaCreateLeadService;
+import org.opentaps.base.services.CreatePartyEmailAddressService;
+import org.opentaps.base.services.CreatePartyNoteService;
 import org.opentaps.foundation.service.ServiceException;
 import org.opentaps.foundation.infrastructure.Infrastructure;
 import org.opentaps.foundation.infrastructure.User;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 
 import java.util.Locale;
 
@@ -40,25 +45,31 @@ public class LeadsServices extends DomainService {
     }
 
 
-
-    public String putLead(LeadBean lead) {
-        Debug.logInfo("Creating lead [" + lead.getCompanyName() + " " + lead.getFirstName() + " " + lead.getLastName() + "]", "LeadsServices");
+    public void createLead(LeadBean lead) throws ServiceException {
+        Debug.logInfo("Creating lead [" + lead.getCompanyName() + " " + lead.getFirstName() + " " + lead.getLastName() + " " + lead.getEmailAddress() + " " + lead.getEmailAddress() + "]", "LeadsServices");
 
         // Create the lead, this must be filled
-        CrmsfaCreateLeadService createLeadSer = new CrmsfaCreateLeadService();
-        createLeadSer.setInCompanyName(lead.getCompanyName());
-        createLeadSer.setInFirstName(lead.getFirstName());
-        createLeadSer.setInLastName(lead.getLastName());
+        CrmsfaCreateLeadService createLeadService = new CrmsfaCreateLeadService();
+//        createLeadService.setInUserLogin();
+        createLeadService.setInCompanyName(lead.getCompanyName());
+        createLeadService.setInFirstName(lead.getFirstName());
+        createLeadService.setInLastName(lead.getLastName());
 
-        try {
-            runSync(createLeadSer);
-        } catch (ServiceException e) {
-            Debug.logError("putLead - Creating lead failed: " + e.getMessage(), "LeadsServices");
-        }
+        // TODO Mandatory fields are missing, test how that works.
 
-        String leadId = createLeadSer.getOutPartyId();
+//        if (UtilValidate.isNotEmpty(lead.getEmailAddress())) {
+            createLeadService.setInPrimaryEmail(lead.getEmailAddress());
+//        }
 
-        Debug.logInfo("putLead - Creating lead leadId: " + leadId, "LeadsServices");
+//        if (UtilValidate.isNotEmpty(lead.getDescription())) {
+            createLeadService.setInDescription(lead.getDescription());
+//        }
+
+        runSync(createLeadService);
+
+        String leadId = createLeadService.getOutPartyId();
+
+        Debug.logInfo("createLead - Creating lead leadId: " + leadId, "LeadsServices");
 /*
         // Create the postal address if given
         if (UtilValidate.isNotEmpty(row.get("address1"))) {
@@ -116,17 +127,24 @@ public class LeadsServices extends DomainService {
             faxSer.setInContactMechPurposeTypeId(ContactMechPurposeTypeConstants.FAX_NUMBER);
             runSync(faxSer);
         }
-
+*/
+/*
         // Create the email address if given
-        if (UtilValidate.isNotEmpty(row.get("emailAddress"))) {
+        if (UtilValidate.isNotEmpty(lead.getEmailAddress())) {
             CreatePartyEmailAddressService emailSer = new CreatePartyEmailAddressService();
             emailSer.setInPartyId(leadId);
-            emailSer.setInEmailAddress(row.get("emailAddress"));
+            emailSer.setInEmailAddress(lead.getEmailAddress());
             // set the purpose as Primary Email Address
             emailSer.setInContactMechPurposeTypeId(ContactMechPurposeTypeConstants.PRIMARY_EMAIL);
-            runSync(emailSer);
-        }
 
+            try {
+                runSync(emailSer);
+            } catch (ServiceException e) {
+                Debug.logError("createLead - Adding Email to a lead failed: " + e.getMessage(), "LeadsServices");
+            }
+        }
+*/
+/*
         // Create the web address if given
         if (UtilValidate.isNotEmpty(row.get("webAddress"))) {
             CreatePartyContactMechService webSer = new CreatePartyContactMechService();
@@ -137,21 +155,26 @@ public class LeadsServices extends DomainService {
             webSer.setInContactMechPurposeTypeId(ContactMechPurposeTypeConstants.PRIMARY_WEB_URL);
             runSync(webSer);
         }
-
+*/
+/*
         // Create the note if given
-        if (UtilValidate.isNotEmpty(row.get("note"))) {
+        if (UtilValidate.isNotEmpty(lead.getDescription())) {
             CreatePartyNoteService noteSer = new CreatePartyNoteService();
             noteSer.setInPartyId(leadId);
-            noteSer.setInNote(row.get("note"));
-            runSync(noteSer);
+            noteSer.setInNote(lead.getDescription());
+
+            try {
+                runSync(noteSer);
+            } catch (ServiceException e) {
+                Debug.logError("createLead - Adding Note to a lead failed: " + e.getMessage(), "LeadsServices");
+            }
         }
 */
+
         // add to the list of successfully imported leads
 //        createdLeadIds.add(leadId);
 
-        lead.setId(leadId); // "LEAD-321");
-
-        return "LEAD-321"; // leadId; //
+        lead.setId(leadId);
     }
 
 }

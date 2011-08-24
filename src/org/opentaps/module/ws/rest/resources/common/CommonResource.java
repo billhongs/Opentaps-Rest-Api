@@ -62,13 +62,13 @@ public class CommonResource {
 
         if (!userLoginService.getOutResponseMessage().equals("success")) {
             Debug.logError("User cannot be authenticated: " + username, MODULE);
-            //todo we should return an error message
+            // TODO we should return an error message
 //            throw new WebApplicationException(Response.Status.FORBIDDEN);
             return false;
         }
 
         try {
-            user = getUser("APIF8C702B8");
+            user = getUser("APIF8C702B8"); // 33a41e802f428972a03107d392644713
 //            Debug.logInfo("User ID: " + user.getUserId(), MODULE);
             Debug.logInfo("User Permissions: " + user.getPermissions(), MODULE);
         } catch (InfrastructureException e) {

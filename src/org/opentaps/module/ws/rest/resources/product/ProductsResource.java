@@ -57,20 +57,20 @@ public class ProductsResource extends CommonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
     public Response getProducts() {
-        Debug.logInfo("getProducts 1234 called", MODULE);
+        Debug.logInfo("getProducts 1234567 called", MODULE);
 
-/*
         if (!checkAccess(requestHeaders)) {
             CommonResponse response = new CommonResponse("error", "403 Forbidden.");
             return Response.status(Response.Status.FORBIDDEN).entity(response).build();
         }
-*/
 
         List<Product> products;
 
         try {
-//            products = repository.findAll(Product.class);
-            products = repository.findPage(Product.class, EntityCondition.makeCondition(), 1, 20);
+            products = repository.findAll(Product.class);
+            // TODO add ability to get paginated list of products for huge catalogs,
+            //  based on request parameters? with a max limit i.e. 500 per page
+//            products = repository.findPage(Product.class, EntityCondition.makeCondition(), 1, 20);
             Debug.logInfo("Found products: " + products.size(), "createdStamp");
         } catch (RepositoryException e) {
             Debug.logError("Cannot find products: " + e.getMessage(), MODULE);

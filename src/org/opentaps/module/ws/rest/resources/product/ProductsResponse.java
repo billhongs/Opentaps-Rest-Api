@@ -9,12 +9,13 @@ import java.util.Map;
 import javax.xml.bind.annotation.*;
 
 
-@XmlRootElement(name = "response")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "response")
 public class ProductsResponse extends CommonResponse {
 
+    @XmlElementWrapper(name = "products")
     @XmlElementRef
-    ProductsList data;
+    private ArrayList<ProductBean> data;
 
 
     public ProductsResponse() {
@@ -30,15 +31,15 @@ public class ProductsResponse extends CommonResponse {
 
     public ProductsResponse(String status,
                           String message,
-                          ProductsList products) {
+                          ArrayList<ProductBean> products) {
         super(status, message);
 
-        data = products;
+        this.data = products;
     }
 
 
-    public void setData(ProductsList products) {
-        data = products;
+    public void setData(ArrayList<ProductBean> products) {
+        this.data = products;
     }
 
 }

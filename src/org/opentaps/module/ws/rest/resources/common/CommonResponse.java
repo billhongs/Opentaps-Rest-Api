@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "response")
-//@XmlType(name = "response", propOrder = {"status", "message"})
 public class CommonResponse {
 
     @XmlElement(required = true)

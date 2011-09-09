@@ -26,21 +26,26 @@ public class ProductsAsset {
 
     private static final String MODULE = ProductsAsset.class.getName();
 
-    public ProductsList products;
+    public ArrayList<ProductBean> products;
 
 
     public ProductsAsset(){
-        products = new ProductsList();
+        products = new ArrayList<ProductBean>();
     }
 
 
     public ProductsAsset(Product product){
-        products = new ProductsList(product);
+        this();
+        add(product);
     }
 
 
     public ProductsAsset(List<Product> products){
-        this.products = new ProductsList(products);
+        this();
+
+        for(Product product : products) {
+            add(product);
+        }
     }
 
 
@@ -48,6 +53,11 @@ public class ProductsAsset {
     public ProductsAsset getProducts() {
 //        return new ProductsResponse("success", "Some success message", products);
         return this;
+    }
+
+
+    public void add(Product product) {
+        products.add(new ProductBean(product));
     }
 
 

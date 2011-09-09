@@ -2,11 +2,8 @@ package org.opentaps.module.ws.rest.resources.product;
 
 import org.opentaps.module.ws.rest.resources.common.CommonResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -22,24 +19,25 @@ public class ProductsResponse extends CommonResponse {
         super();
     }
 
-
     public ProductsResponse(String status,
                           String message) {
         super(status, message);
     }
-
 
     public ProductsResponse(String status,
                           String message,
                           ArrayList<ProductBean> products) {
         super(status, message);
 
-        this.data = products;
+        data = products;
     }
 
+    public ArrayList<ProductBean> getData() {
+        return data;
+    }
 
     public void setData(ArrayList<ProductBean> products) {
-        this.data = products;
+        data = products;
     }
 
 }

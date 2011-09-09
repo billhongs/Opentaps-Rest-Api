@@ -1,9 +1,6 @@
 package org.opentaps.module.ws.rest.resources.product;
 
-import org.ofbiz.base.util.Debug;
-
 import org.opentaps.domain.product.Product;
-//import sun.security.util.Debug;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -12,8 +9,6 @@ import org.opentaps.module.ws.rest.resources.common.DateAdapter;
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.lang.Long;
-import java.text.DateFormat;
-import java.util.TimeZone;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)

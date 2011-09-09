@@ -57,13 +57,14 @@ public class ProductsResource extends CommonResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
     public Response getProducts() {
-        Debug.logInfo("getProducts 1234567 called", MODULE);
+        Debug.logInfo("getProducts 12345678 called", MODULE);
 
         if (!checkAccess(requestHeaders)) {
             CommonResponse response = new CommonResponse("error", "403 Forbidden.");
             return Response.status(Response.Status.FORBIDDEN).entity(response).build();
         }
 
+        // TODO add ProductServices class to separate the lookup/update functionality
         List<Product> products;
 
         try {

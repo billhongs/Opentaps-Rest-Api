@@ -12,7 +12,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Providers;
 import java.io.IOException;
-import java.util.Date;
 
 
 @Asset
@@ -26,23 +25,19 @@ public class ProductAsset {
         this(null);
     }
 
-
     public ProductAsset(ProductBean product) {
         this(product, false);
     }
-
 
     public ProductAsset(ProductBean product, boolean child) {
         this.product = product;
         this.child = child;
     }
 
-
     @Produces({MediaType.APPLICATION_XML})
     public ProductBean getProduct() {
         return product;
     }
-
 
     @Produces({MediaType.WILDCARD, MediaType.APPLICATION_JSON})
     public SyndEntry getSyndEntry(@Context Providers providers, @Context UriInfo uriInfo, @Context LinkBuilders linkBuilders) throws IOException {
@@ -67,12 +62,10 @@ public class ProductAsset {
         return entry;
     }
 
-
     @Consumes(MediaType.APPLICATION_XML)
     public void setProduct(ProductBean product) {
         this.product = product;
     }
-
 
     @Consumes
     public void setSyndEntry(SyndEntry entry, @Context Providers providers) throws IOException {

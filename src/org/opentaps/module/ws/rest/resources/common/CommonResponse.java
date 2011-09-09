@@ -1,34 +1,25 @@
 package org.opentaps.module.ws.rest.resources.common;
 
 import javax.xml.bind.annotation.*;
-import java.util.Date;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "response", propOrder = {"status", "message"})
 @XmlRootElement(name = "response")
-public class ResponseBean {
+//@XmlType(name = "response", propOrder = {"status", "message"})
+public class CommonResponse {
 
     @XmlElement(required = true)
-    private String         status;
+    private String status;
+
     @XmlElement(required = true)
-    private String         message;
+    private String message;
 
 
-    /**
-     * Constructor.
-     */
-    public ResponseBean() {
+    public CommonResponse() {
     }
 
-    /**
-     * Constructor.
-     *
-     * @param status Response status
-     * @param message First name
-     */
-    public ResponseBean(String status,
-                        String message) {
+    public CommonResponse(String status,
+                          String message) {
         this.status = status;
         this.message = message;
     }

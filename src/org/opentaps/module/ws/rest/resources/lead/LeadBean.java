@@ -21,29 +21,41 @@ public class LeadBean {
 
     @XmlElement(required = true)
     private String         id;
+
     @XmlElement(required = true)
     private String         companyName;
+
     @XmlElement(required = true)
     private String         firstName;
+
     @XmlElement(required = true)
     private String         lastName;
+
     @XmlElement(required = true)
     private String         emailAddress;
+
     @XmlElement(required = true)
     private String         description;
+
     @XmlElement(required = true)
     @XmlSchemaType(name = "dateTime")
     private Date           created;
+
     @XmlElement(required = true)
     private String         author;
+
     @XmlElement(required = true)
     private String         severity;
+
     @XmlElement(required = true)
     private String         status;
+
     @XmlElement(required = true)
     private String         assignedTo;
+
 //    @XmlTransient
 //    private List<TestBean> tests;
+
     @XmlTransient
     private String         pathToAttachment;
 

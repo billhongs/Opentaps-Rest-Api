@@ -1,11 +1,18 @@
 package org.opentaps.module.ws.rest.resources.lead;
 
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.LocalDispatcher;
+import org.opentaps.foundation.entity.EntityInterface;
+import org.opentaps.module.ws.rest.resources.common.CommonInputProvider;
+
 import org.opentaps.domain.DomainService;
 
 import org.opentaps.base.constants.ContactMechPurposeTypeConstants;
 import org.opentaps.base.services.CrmsfaCreateLeadService;
 import org.opentaps.base.services.CreatePartyEmailAddressService;
 import org.opentaps.base.services.CreatePartyNoteService;
+import org.opentaps.foundation.infrastructure.InfrastructureException;
 import org.opentaps.foundation.service.ServiceException;
 import org.opentaps.foundation.infrastructure.Infrastructure;
 import org.opentaps.foundation.infrastructure.User;
@@ -13,6 +20,9 @@ import org.opentaps.foundation.infrastructure.User;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.opentaps.gwt.common.client.lookup.configuration.PartyLookupConfiguration;
+import org.opentaps.gwt.common.server.InputProviderInterface;
+import org.opentaps.gwt.common.server.lookup.PartyLookupService;
 
 import java.util.Locale;
 
@@ -23,6 +33,9 @@ import java.util.Locale;
 public class LeadsServices extends DomainService {
 
     private static final String MODULE = LeadsServices.class.getName();
+    protected GenericDelegator delegator;
+    protected LocalDispatcher dispatcher;
+    protected Infrastructure infrastructure = null;
 
 
     /**
@@ -30,6 +43,10 @@ public class LeadsServices extends DomainService {
      */
     public LeadsServices() {
         super();
+
+        delegator = GenericDelegator.getGenericDelegator("default");
+        dispatcher = GenericDispatcher.getLocalDispatcher("default", delegator);
+        infrastructure = new Infrastructure(dispatcher);
     }
 
     /**
@@ -42,6 +59,46 @@ public class LeadsServices extends DomainService {
      */
     public LeadsServices(Infrastructure infrastructure, User user, Locale locale) throws ServiceException {
         super(infrastructure, user, locale);
+
+        this.infrastructure = infrastructure;
+        // TODO get dispatcher and delegator from infrastructure
+        delegator = GenericDelegator.getGenericDelegator("default");
+        dispatcher = GenericDispatcher.getLocalDispatcher("default", delegator);
+    }
+
+
+    public void findLeads() {
+        InputProviderInterface provider;
+
+        try {
+            provider = new CommonInputProvider(user.getOfbizUserLogin(), dispatcher);
+//            provider.setParameter(PartyLookupConfiguration.INOUT_PARTY_ID, "APIF8C702B8");
+            provider.setParameter(PartyLookupConfiguration.INOUT_PARTY_ID, "alex");
+            provider.setParameter(PartyLookupConfiguration.IN_RESPONSIBILTY, PartyLookupConfiguration.MY_VALUES);
+        } catch (InfrastructureException e) {
+            // TODO catch
+            return;
+        }
+
+        Debug.logInfo("findLeads - trying ti find leads ==========", "findLeads");
+        try {
+            PartyLookupService lookup = new PartyLookupService(provider);
+            lookup.findLeads();
+            Debug.logInfo("findLeads - ran successfully +++++++++" + lookup.getResults().toString(), "findLeads");
+
+            for (EntityInterface record : lookup.getResults()) {
+                Debug.logInfo(record.toMap().toString(), "findLeads");
+            }
+        } catch (Exception e) {
+            // TODO catch
+            return;
+        }
+
+//        try {
+//            PartyLookupService partyLookupService = new PartyLookupService(infrastructure);
+//        } catch (InfrastructureException e) {
+//            // TODO debug
+//        }
     }
 
 

@@ -1,5 +1,9 @@
 package org.opentaps.module.ws.rest.resources.product;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.service.GenericServiceException;
 import org.opentaps.module.ws.rest.resources.common.CommonResource;
 
 import org.apache.wink.common.annotations.Workspace;
@@ -11,6 +15,8 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
+import org.opentaps.foundation.entity.EntityFieldInterface;
+
 import org.opentaps.base.entities.UserLogin;
 import org.opentaps.base.services.CreateProductService;
 import org.opentaps.base.services.UserLoginService;
@@ -21,11 +27,14 @@ import org.opentaps.foundation.infrastructure.User;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.foundation.repository.ofbiz.Repository;
 import org.opentaps.foundation.service.ServiceException;
+import org.opentaps.module.ws.rest.resources.common.CommonResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Path(ProductsResource.PRODUCTS_URL)
@@ -37,6 +46,8 @@ public class ProductsResource extends CommonResource {
     public static final String PRODUCT = "product";
     public static final String PRODUCT_URL = "{" + PRODUCT + "}";
 
+    @Context HttpHeaders requestHeaders;
+
 
     public ProductsResource() {
         super();
@@ -44,18 +55,36 @@ public class ProductsResource extends CommonResource {
 
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON}) // , MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML
-    public ProductsAsset getProducts() {
-        List<Product> products = null;
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    public Response getProducts() {
+        Debug.logInfo("getProducts 1234 called", MODULE);
+
+/*
+        if (!checkAccess(requestHeaders)) {
+            CommonResponse response = new CommonResponse("error", "403 Forbidden.");
+            return Response.status(Response.Status.FORBIDDEN).entity(response).build();
+        }
+*/
+
+        List<Product> products;
+
         try {
-            products = repository.findAll(Product.class);
+//            products = repository.findAll(Product.class);
+            products = repository.findPage(Product.class, EntityCondition.makeCondition(), 1, 20);
+            Debug.logInfo("Found products: " + products.size(), "createdStamp");
         } catch (RepositoryException e) {
-            Debug.logError(e, MODULE);
+            Debug.logError("Cannot find products: " + e.getMessage(), MODULE);
+
+            CommonResponse response = new CommonResponse("error", "Cannot find products: " + e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
 
         ProductsAsset productsAsset = new ProductsAsset(products);
 
-        return productsAsset;
+        ProductsResponse response = new ProductsResponse("success", "Some success message");
+        response.setData(productsAsset.products);
+
+        return Response.status(Response.Status.OK).entity(response).build();
     }
 
 
@@ -84,8 +113,8 @@ public class ProductsResource extends CommonResource {
 
         CreateProductService createProductService = new CreateProductService();
         createProductService.setInProductId(repository.getNextSeqId(new Product()));
-        createProductService.setInInternalName(product.getInternalName());
-        createProductService.setInProductTypeId(product.getProductType());
+//        createProductService.setInInternalName(product.getInternalName());
+//        createProductService.setInProductTypeId(product.getProductType());
         createProductService.setUser(getUser(username));
 
         try {

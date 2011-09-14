@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @XmlRootElement(name = "response")
 public class ProductsResponse extends CommonResponse {
 
-    @XmlElementWrapper(name = "products")
+    @XmlElementWrapper(name = "data")
     @XmlElementRef
     private ArrayList<ProductBean> data;
 

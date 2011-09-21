@@ -110,10 +110,6 @@
 
     <target name="clean-lib" depends="init">
         <delete dir="${build.dir}/lib"/>
-
-        <delete>
-            <fileset dir="${build.dir}/classes" includes="*.id"/>
-        </delete>
     </target>
 
     <target name="clean-gwt" depends="init">

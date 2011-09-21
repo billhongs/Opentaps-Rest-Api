@@ -61,7 +61,7 @@
         <property name="webapp.dir" value="webapp/${name}/WEB-INF"/>
 
         <tstamp>
-            <format property="build.id" pattern="ddMMyyyyHHmm" />
+            <format property="build.id" pattern="yyyyMMddHHmmss" />
         </tstamp>
     </target>
 
@@ -156,7 +156,8 @@
     </target>
 
     <target name="jar" depends="classes">
-        <touch file="${build.dir}/classes/${build.id}.id"/>
+        <!--<touch file="${build.dir}/classes/build.id"/>-->
+        <echo file="${build.dir}/classes/build.id">${build.id}</echo>
         <jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>
     </target>
 

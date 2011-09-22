@@ -9,7 +9,6 @@
     <classpath type="jar" location="lib/*"/>
     <classpath type="jar" location="lib/dep/*"/>
     <classpath type="jar" location="lib/ext/*"/>
-    <classpath type="dir" location="script"/>
     <classpath type="dir" location="config"/>
     
     <!-- seed data which will be loaded on "ant run-install" and "ant run-install-seed" -->

@@ -27,3 +27,8 @@ in the framework/base/lib directory and add the following to the log4j.xml file
         <appender-ref ref="wink-log"/>
     </category>
 
+
+
+################  SPRING SECURITY ###################
+in order for spring security to work you should remove the library spring-core.jar in framework/base/lib/etl/spring
+the rest api module should me loaded in the component-load.xml before all other modules

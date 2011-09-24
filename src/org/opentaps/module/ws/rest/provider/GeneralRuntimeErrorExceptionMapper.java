@@ -2,6 +2,7 @@ package org.opentaps.module.ws.rest.provider;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,6 +11,7 @@ import javax.ws.rs.ext.ExceptionMapper;
  * Time: 4:23 PM
  * To change this template use File | Settings | File Templates.
  */
+@Provider
 public class GeneralRuntimeErrorExceptionMapper  implements ExceptionMapper<Throwable>{
 
     public Response toResponse(Throwable throwable) {

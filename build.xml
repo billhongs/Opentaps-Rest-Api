@@ -52,6 +52,7 @@
         <property name="lib.dir" value="lib"/>
         <property name="lib.dep.dir" value="lib/dep"/>
         <property name="lib.ext.dir" value="lib/ext"/>
+        <property name="lib.ext.security.dir" value="lib/security"/>
         <property name="build.dir" value="build"/>
         <!-- This parameter must point to your ofbiz/ directory or the libraries for the financials app would not be found.
          The default setting would work if you have checked out the financials module into your ofbiz/opentaps/ directory.
@@ -70,6 +71,7 @@
             <fileset dir="${lib.dir}" includes="*.jar"/>
             <fileset dir="${lib.dep.dir}" includes="*.jar"/>
             <fileset dir="${lib.ext.dir}" includes="*.jar"/>
+            <fileset dir="${lib.ext.security.dir}" includes="*.jar"/>
             <fileset dir="${ofbiz.dir}/framework/base/lib" includes="*.jar"/>
             <fileset dir="${ofbiz.dir}/framework/base/lib/commons" includes="*.jar"/>
             <fileset dir="${ofbiz.dir}/framework/base/lib/j2eespecs" includes="*.jar"/>

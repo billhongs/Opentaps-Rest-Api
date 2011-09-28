@@ -20,6 +20,7 @@ import javolution.util.FastList;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.util.BuildId;
 
 @Path(CatalogsResource.MAIN_URL)
 @Workspace(workspaceTitle = "REST API", collectionTitle = "Stores")
@@ -27,12 +28,16 @@ public class CatalogsResource extends CommonResource {
 
     private static String MODULE = CatalogsResource.class.getName();
     public static final String MAIN_URL = "/stores";
+    public String buildId = null;
 
     @Context HttpHeaders requestHeaders;
 
 
     public CatalogsResource() {
         super();
+
+        buildId = BuildId.getBuildId(this.getClass(), "/build.id");
+        Debug.logInfo("BUILD ID: " + buildId + " ++++++++++ ZZZZZZZZZZZZZZ 12 =============", MODULE);
     }
 
 
@@ -50,14 +55,14 @@ public class CatalogsResource extends CommonResource {
         }
 */
 
-        List<ProductStore> prodStores;
+        List<ProductStore> productStores;
 
         try {
-            prodStores = repository.findAll(ProductStore.class);
+            productStores = repository.findAll(ProductStore.class);
             // TODO add ability to get paginated list of products for huge catalogs,
             //  based on request parameters? with a max limit i.e. 500 per page
 //            products = repository.findPage(Product.class, EntityCondition.makeCondition(), 1, 20);
-            Debug.logInfo("Found product stores: " + prodStores.size(), "getProductStores");
+            Debug.logInfo("Found product stores: " + productStores.size(), "getProductStores");
         } catch (RepositoryException e) {
             Debug.logError("Cannot find product stores: " + e.getMessage(), MODULE);
 
@@ -65,36 +70,20 @@ public class CatalogsResource extends CommonResource {
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
 
-        for(ProductStore prodStore : prodStores) {
-            Debug.logInfo("getProductStores ID: " + prodStore.getProductStoreId(), "getProductStores");
-        }
-/*
-        ProductStore productStore = new ProductStore();
-
-        List<ProdCatalog> prodCatalogs;
-
-        try {
-            prodCatalogs = productStore.getProdCatalogs();
-//            repository.getRel
-        } catch (RepositoryException e) {
-            CommonResponse response = new CommonResponse("error", "Can't find product catalogs: " + e.getMessage());
-            return Response.status(Response.Status.OK).entity(response).build();
+        for(ProductStore productStore : productStores) {
+            Debug.logInfo("getProductStores ID: " + productStore.getProductStoreId(), "getProductStores");
         }
 
-        Debug.logInfo(prodCatalogs.toString(), "getCatalogs");
-*/
-/*
-        User assignedTo = user;
+        ArrayList<ProductStoreBean> stores = new ArrayList<ProductStoreBean>();
 
-        try {
-            LeadsServices leadsServices = new LeadsServices(infrastructure, assignedTo, Locale.getDefault());
-            leadsServices.findLeads();
-        } catch (ServiceException e) {
-            // TODO catch here
+        for(ProductStore productStore : productStores) {
+            Debug.logInfo("getProductStores ID: " + productStore.getProductStoreId(), "getProductStores");
+            stores.add(new ProductStoreBean(productStore));
         }
-*/
 
-        CommonResponse response = new CommonResponse("success", "Everything is OK, you'll get Stores soon.");
+        ProductStoreResponse response = new ProductStoreResponse("success", "List of product catalog categories");
+        response.setData(stores);
+
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -153,6 +142,12 @@ public class CatalogsResource extends CommonResource {
 
         List<GenericValue> productCatalogCategories = new FastList<GenericValue>();
         GenericValue topCategory = CatalogServices.getCatalogTopCategory(delegator, catalogId);
+        Debug.logInfo("topCategory " + topCategory, MODULE);
+
+        if (topCategory == null) {
+            CommonResponse response = new CommonResponse("error", "Cannot find product catalog \"" + catalogId + "\" for store \"" + storeId + "\"");
+            return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
+        }
 
         productCatalogCategories.add(topCategory);
         Debug.logInfo("ROOT category ID: " + topCategory.get("productCategoryId"), MODULE);
@@ -173,6 +168,21 @@ public class CatalogsResource extends CommonResource {
 
         CatalogResponse response = new CatalogResponse("success", "List of product catalog categories");
         response.setData(categories);
+
+        return Response.status(Response.Status.OK).entity(response).build();
+    }
+
+
+    @Path("{storeId}/catalogs/{catalogId}/categories/ROOT")
+    @GET
+    @Consumes({MediaType.WILDCARD})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    public Response getStoreCatalogTopCategory(@PathParam("storeId") String storeId,
+                                         @PathParam("catalogId") String catalogId) {
+        Debug.logInfo("Store ID: " + storeId + " Catalog ID: " + catalogId + " ROOT Category ++++++++++", MODULE);
+
+        CatalogResponse response = new CatalogResponse("success", "List of product catalog categories");
+//        response.setData(categories);
 
         return Response.status(Response.Status.OK).entity(response).build();
     }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<entity-engine-xml>
+
+
+    <SecurityPermission permissionId="REST_VIEW" description="Basic permission to access the rest Api"/>
+
+  <SecurityGroup groupId="REST_FULL_ADMIN" description="Rest api administrator" />
+
+
+  <SecurityGroupPermission groupId="REST_FULL_ADMIN" permissionId="REST_VIEW"/>
+
+
+</entity-engine-xml>

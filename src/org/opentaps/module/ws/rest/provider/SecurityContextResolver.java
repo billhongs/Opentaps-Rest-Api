@@ -25,9 +25,9 @@ public class SecurityContextResolver implements ContextResolver<Permission>{
     SecurityContext securityContext;
 
     public Permission getContext(Class<?> aClass) {
-         //todo potentially we could receive an opentaps object here which encapsulate the ofbiz user and the spring user
+
         Permission permission = SecurityManager.getSecurityManager().getPermission(
-               (User) ((UsernamePasswordAuthenticationToken)securityContext.getUserPrincipal()).getPrincipal());
+               (OpentapsRestUserDetails) ((UsernamePasswordAuthenticationToken)securityContext.getUserPrincipal()).getPrincipal());
 
         return permission;
     }

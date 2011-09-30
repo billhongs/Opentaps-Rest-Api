@@ -9,6 +9,7 @@ import org.opentaps.base.entities.UserLogin;
 import org.opentaps.base.entities.UserLoginSecurityGroup;
 import org.opentaps.foundation.entity.EntityNotFoundException;
 import org.opentaps.foundation.infrastructure.Infrastructure;
+import org.opentaps.foundation.infrastructure.InfrastructureException;
 import org.opentaps.foundation.infrastructure.User;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.foundation.repository.ofbiz.Repository;
@@ -19,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -57,22 +59,24 @@ public class OpentapsUserDetailService implements UserDetailsService {
         opentapsRestUserDetails.setAccountNonLocked(userLogin.getEnabled()== null ? true : userLogin.getEnabled().equals("Y"));
         opentapsRestUserDetails.setCredentialsNonExpired(userLogin.getEnabled()== null ? true : userLogin.getEnabled().equals("Y"));
         opentapsRestUserDetails.setEnabled(userLogin.getEnabled()== null ? true : userLogin.getEnabled().equals("Y"));
-        List<? extends UserLoginSecurityGroup> userLoginSecurityGroups = null;
-        try {
-            userLoginSecurityGroups = userLogin.getUserLoginSecurityGroups();
-        } catch (RepositoryException e) {
-            //todo do something with this error.
-            Debug.logError("Error communicating with the Repository",MODULE);
-        }
-        for (UserLoginSecurityGroup userLoginSecurityGroup : userLoginSecurityGroups) {
-            opentapsRestUserDetails.addAuthority(userLoginSecurityGroup.getGroupId());
-        }
 
+        User user = null;
         try {
-            opentapsRestUserDetails.setUser(new User(Repository.genericValueFromEntity(userLogin),delegator));
+            user = new User(Repository.genericValueFromEntity(userLogin),delegator);
+            opentapsRestUserDetails.setUser(user);
         } catch (RepositoryException e) {
            //todo do something with this error.
             Debug.logError("Error communicating with the Repository",MODULE);
+        }
+
+        try {
+            Set<String> permissions = user.getPermissions();
+            for (String permission : permissions) {
+                opentapsRestUserDetails.addAuthority(permission);
+            }
+
+        } catch (InfrastructureException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
         return opentapsRestUserDetails;

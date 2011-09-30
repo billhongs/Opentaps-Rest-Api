@@ -18,7 +18,7 @@
     </global-method-security>
 
     <http auto-config='true' use-expressions="true">
-        <intercept-url pattern="/**" access="hasRole('SOUQ_FULL_ADMIN')"/>
+        <intercept-url pattern="/**" access="hasRole('REST_VIEW')"/>
         <form-login/>
         <http-basic/>
         <logout/>

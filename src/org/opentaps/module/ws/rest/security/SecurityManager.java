@@ -24,7 +24,7 @@ public class SecurityManager {
         return securityManager;
     }
 
-    public Permission getPermission(User user){
+    public Permission getPermission(OpentapsRestUserDetails user){
         return new OpentapsPermissions(user);
     }
 }

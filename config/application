@@ -5,4 +5,4 @@ org.opentaps.module.ws.rest.resources.invoice.InvoiceResource
 
 #PROVIDERS
 org.opentaps.module.ws.rest.provider.GeneralRuntimeErrorExceptionMapper
-org.opentaps.module.ws.rest.provider.SecurityContextResolver
+org.opentaps.module.ws.rest.provider.OpentapsContextResolver

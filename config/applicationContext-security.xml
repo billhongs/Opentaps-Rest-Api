@@ -32,11 +32,13 @@
         peter/opal
     -->
     <authentication-manager>
-        <authentication-provider user-service-ref="opentapsUserDetailService" />
+        <authentication-provider user-service-ref="opentapsUserDetailService" >
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="opentapsUserDetailService" class="org.opentaps.module.ws.rest.security.OpentapsUserDetailService">
+    <beans:bean id="opentapsUserDetailService" class="org.opentaps.module.ws.rest.security.OpentapsUserDetailService" />
+    <beans:bean id="passwordEncoder" class="org.opentaps.module.ws.rest.security.OpentapsPasswordEncoder" />
 
-    </beans:bean>
 
 </beans:beans>

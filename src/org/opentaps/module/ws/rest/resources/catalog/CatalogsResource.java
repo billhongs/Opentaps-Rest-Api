@@ -8,6 +8,7 @@ import org.opentaps.base.entities.ProdCatalog;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.module.ws.rest.resources.common.CommonResource;
 import org.opentaps.module.ws.rest.resources.common.CommonResponse;
+import org.opentaps.module.ws.rest.resources.common.CommonException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -43,7 +44,7 @@ public class CatalogsResource extends CommonResource {
 
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getStores() {
         Debug.logInfo("Stores ++++++++++", MODULE);
 
@@ -81,7 +82,7 @@ public class CatalogsResource extends CommonResource {
             stores.add(new ProductStoreBean(productStore));
         }
 
-        ProductStoreResponse response = new ProductStoreResponse("success", "List of product catalog categories");
+        ProductStoreResponse response = new ProductStoreResponse("success", "List of product stores");
         response.setData(stores);
 
         return Response.status(Response.Status.OK).entity(response).build();
@@ -91,11 +92,16 @@ public class CatalogsResource extends CommonResource {
     @Path("{storeId}")
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
-    public Response getStore(@PathParam("storeId") String storeId) {
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getStore(@PathParam("storeId") String storeId) throws CommonException {
         Debug.logInfo("Store ID: " + storeId + " ++++++++++", MODULE);
 
-        CommonResponse response = new CommonResponse("success", "Everything is OK, you'll get Store soon.");
+        // TODO remove, for demonstration purposes only
+        if (storeId != null) {
+            throw new CommonException("Valid store ID has to be provided.");
+        }
+
+        CommonResponse response = new CommonResponse("success", "Everything is OK, you'll get Store soon...");
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -103,7 +109,7 @@ public class CatalogsResource extends CommonResource {
     @Path("{storeId}/catalogs")
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getStoreCatalogs(@PathParam("storeId") String storeId) {
         Debug.logInfo("Store ID: " + storeId + " Catalogs ++++++++++", MODULE);
 
@@ -122,7 +128,7 @@ public class CatalogsResource extends CommonResource {
     @Path("{storeId}/catalogs/{catalogId}")
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getStoreCatalog(@PathParam("storeId") String storeId,
                                       @PathParam("catalogId") String catalogId) {
         Debug.logInfo("Store ID: " + storeId + " Catalog ID: " + catalogId + " ++++++++++", MODULE);
@@ -135,7 +141,7 @@ public class CatalogsResource extends CommonResource {
     @Path("{storeId}/catalogs/{catalogId}/categories")
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getStoreCatalogCategories(@PathParam("storeId") String storeId,
                                          @PathParam("catalogId") String catalogId) {
         Debug.logInfo("Store ID: " + storeId + " Catalog ID: " + catalogId + " Categories ++++++++++", MODULE);
@@ -176,7 +182,7 @@ public class CatalogsResource extends CommonResource {
     @Path("{storeId}/catalogs/{catalogId}/categories/ROOT")
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getStoreCatalogTopCategory(@PathParam("storeId") String storeId,
                                          @PathParam("catalogId") String catalogId) {
         Debug.logInfo("Store ID: " + storeId + " Catalog ID: " + catalogId + " ROOT Category ++++++++++", MODULE);
@@ -191,7 +197,7 @@ public class CatalogsResource extends CommonResource {
     @Path("{storeId}/catalogs/{catalogId}/categories/{categoryId}")
     @GET
     @Consumes({MediaType.WILDCARD})
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getStoreCatalogCategory(@PathParam("storeId") String storeId,
                                        @PathParam("catalogId") String catalogId,
                                        @PathParam("categoryId") String categoryId) {

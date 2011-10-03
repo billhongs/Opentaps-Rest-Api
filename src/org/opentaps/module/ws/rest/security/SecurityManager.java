@@ -1,6 +1,10 @@
 package org.opentaps.module.ws.rest.security;
 
-import org.springframework.security.core.userdetails.User;
+
+import org.opentaps.foundation.infrastructure.User;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,20 +15,27 @@ import org.springframework.security.core.userdetails.User;
  */
 public class SecurityManager {
 
-    private static SecurityManager securityManager;
+    OpentapsRestUserDetails opentapsRestUser;
 
-    private SecurityManager(){
-
+    public SecurityManager(OpentapsRestUserDetails user) {
+        this.opentapsRestUser = user;
     }
 
-    public static SecurityManager getSecurityManager(){
-          if(securityManager == null){
-              securityManager = new SecurityManager();
+    public String getRoles(){
+          Collection<GrantedAuthority> authorities = opentapsRestUser.getAuthorities();
+          StringBuilder result = new StringBuilder();
+          for (GrantedAuthority authority : authorities) {
+              result.append(authority).append(",");
           }
-        return securityManager;
+          return result.toString();
+      }
+
+    public String getUsername(){
+        return opentapsRestUser.getUsername();
     }
 
-    public Permission getPermission(User user){
-        return new OpentapsPermissions(user);
+    public User getOpentapsUser() {
+        return opentapsRestUser.getUser();
     }
+
 }

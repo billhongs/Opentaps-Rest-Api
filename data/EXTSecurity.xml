@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<entity-engine-xml>
+
+
+<UserLoginSecurityGroup userLoginId="admin" groupId="REST_FULL_ADMIN" fromDate="2006-01-01 00:00:00" />
+
+
+</entity-engine-xml>

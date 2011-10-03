@@ -18,7 +18,7 @@
     </global-method-security>
 
     <http auto-config='true' use-expressions="true">
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**" access="hasRole('REST_VIEW')"/>
         <form-login/>
         <http-basic/>
         <logout/>
@@ -32,14 +32,13 @@
         peter/opal
     -->
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="rod" password="test" authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_TELLER"/>
-                <user name="dianne" password="test" authorities="ROLE_USER,ROLE_TELLER"/>
-                <user name="scott" password="test" authorities="ROLE_USER"/>
-                <user name="peter" password="test" authorities="ROLE_USER"/>
-            </user-service>
+        <authentication-provider user-service-ref="opentapsUserDetailService" >
+            <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
+
+    <beans:bean id="opentapsUserDetailService" class="org.opentaps.module.ws.rest.security.OpentapsUserDetailService" />
+    <beans:bean id="passwordEncoder" class="org.opentaps.module.ws.rest.security.OpentapsPasswordEncoder" />
+
 
 </beans:beans>

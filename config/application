@@ -1,3 +1,4 @@
+org.opentaps.module.ws.rest.resources.Wadl
 org.opentaps.module.ws.rest.resources.catalog.CatalogsResource
 org.opentaps.module.ws.rest.resources.product.ProductsResource
 org.opentaps.module.ws.rest.resources.lead.LeadsResource

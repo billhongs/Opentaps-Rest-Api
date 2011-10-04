@@ -98,7 +98,7 @@ public class CatalogsResource extends CommonResource {
 
         // TODO remove, for demonstration purposes only
         if (storeId != null) {
-            throw new CommonException("Valid store ID has to be provided.");
+            throw new CommonException(Response.Status.NOT_FOUND, "Valid store ID has to be provided.");
         }
 
         CommonResponse response = new CommonResponse("success", "Everything is OK, you'll get Store soon...");

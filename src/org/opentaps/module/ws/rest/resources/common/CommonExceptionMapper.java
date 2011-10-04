@@ -10,7 +10,7 @@ public class CommonExceptionMapper implements ExceptionMapper<CommonException> {
 
     public Response toResponse(CommonException e) {
         CommonResponse response = new CommonResponse("error", e.getMessage());
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).build();
+        return Response.status(e.getStatus()).entity(response).build();
     }
 
 }

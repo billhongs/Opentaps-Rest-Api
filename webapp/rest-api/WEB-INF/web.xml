@@ -44,7 +44,7 @@
         <param-value>
             classpath:applicationContext.xml
             classpath:applicationContext-security.xml
-
+            classpath:META-INF/server/wink-core-context.xml
         </param-value>
     </context-param>
 

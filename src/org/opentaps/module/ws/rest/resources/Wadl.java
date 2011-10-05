@@ -21,17 +21,17 @@ import javax.ws.rs.core.UriInfo;
 @Workspace(workspaceTitle = "REST API", collectionTitle = "Wadl")
 
 public class Wadl  {
-    @Context
-    Application app;
-    @Context
-    UriInfo uriInfo;
-
-    @GET
-    @Produces("application/xml")
-    public org.apache.wink.common.model.wadl.Application getWadlDoc(){
-        String baseUri = uriInfo.getBaseUri().toString();
-        return new WADLGenerator().generate(baseUri,app.getClasses());
-    }
-
+//    @Context
+//    Application app;
+//    @Context
+//    UriInfo uriInfo;
+//
+//    @GET
+//    @Produces("application/xml")
+//    public org.apache.wink.common.model.wadl.Application getWadlDoc(){
+//        String baseUri = uriInfo.getBaseUri().toString();
+//        return new WADLGenerator().generate(baseUri,app.getClasses());
+//    }
+//
 
 }

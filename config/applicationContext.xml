@@ -12,11 +12,31 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <!--Resources definitions-->
     <bean id="resource.wadl" class="org.opentaps.module.ws.rest.resources.Wadl"/>
+    <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
+    <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
+    <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
+    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.invoice.InvoiceResource"/>
+
+    <!--Providers definitions-->
+    <bean id="provider.generalRuntimeErrorException"
+          class="org.opentaps.module.ws.rest.provider.GeneralRuntimeErrorExceptionMapper"/>
+    <bean id="provider.opentapsContextResoler" class="org.opentaps.module.ws.rest.provider.OpentapsContextResolver"/>
+    <bean id="provider.commonExceptionMapper"
+          class="org.opentaps.module.ws.rest.resources.common.CommonExceptionMapper"/>
 
 
     <bean class="org.apache.wink.spring.Registrar">
         <property name="instances">
-            <ref bean="resource.wadl"/>
+            <set>
+                <ref bean="resource.catalog"/>
+                <ref bean="resource.product"/>
+                <ref bean="resource.leads"/>
+                <ref bean="resource.invoice"/>
+
+                <ref bean="provider.generalRuntimeErrorException"/>
+                <ref bean="provider.opentapsContextResoler"/>
+                <ref bean="provider.commonExceptionMapper"/>
+            </set>
         </property>
     </bean>
 

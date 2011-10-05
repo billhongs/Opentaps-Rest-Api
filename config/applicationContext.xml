@@ -9,13 +9,16 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <!--############################## WINK CONFIGURATIONS #########################################################-->
 
+    <bean id="generalResource" class="org.opentaps.module.ws.rest.resources.ApiAbstractResource" abstract="true">
+        <property name="mapper" ref="mapper"/>
+    </bean>
 
     <!--Resources definitions-->
     <bean id="resource.wadl" class="org.opentaps.module.ws.rest.resources.Wadl"/>
     <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
     <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
     <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
-    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.invoice.InvoiceResource"/>
+    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.invoice.InvoiceResource"  parent="generalResource"/>
 
     <!--Providers definitions-->
     <bean id="provider.generalRuntimeErrorException"
@@ -66,7 +69,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 
     <!--############################## DOZER CONFIGURATIONS #########################################################-->
 
-    <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    <bean id="mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
 
     </bean>
 

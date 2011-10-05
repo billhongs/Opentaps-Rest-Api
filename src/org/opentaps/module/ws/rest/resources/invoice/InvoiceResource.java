@@ -1,18 +1,17 @@
 package org.opentaps.module.ws.rest.resources.invoice;
 
 import org.apache.wink.common.annotations.Workspace;
-import org.ofbiz.base.util.Debug;
-import org.opentaps.base.entities.Invoice;
 import org.opentaps.domain.billing.BillingDomainInterface;
+import org.opentaps.domain.billing.invoice.Invoice;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.module.ws.rest.Context.OpentapsContext;
+import org.opentaps.module.ws.rest.resources.ApiAbstractResource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 /**
@@ -24,27 +23,16 @@ import java.util.List;
  */
 @Path("/invoices")
 @Workspace(workspaceTitle = "REST API", collectionTitle = "Invoices")
-public class InvoiceResource {
+public class InvoiceResource extends ApiAbstractResource {
     protected static String MODULE = InvoiceResource.class.getName();
 
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_XML})
-    public Response getProducts(@Context OpentapsContext opentapsContext) {
-
-        Debug.logInfo("USERNAME ["+opentapsContext.getSecurityManager().getUsername()+"] ROLES ["+opentapsContext.getSecurityManager().getRoles()+"] ",MODULE);
+     @Produces( {MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
+    public InvoicesAsset getInvoices(@Context OpentapsContext opentapsContext) throws RepositoryException {
+//        Debug.logInfo("USERNAME ["+opentapsContext.getSecurityManager().getUsername()+"] ROLES ["+opentapsContext.getSecurityManager().getRoles()+"] ",MODULE);
         BillingDomainInterface billingDomain = opentapsContext.getDomainDirectory().getBillingDomain();
-        try {
-            List<Invoice> invoices = billingDomain.getInvoiceRepository().findAll(Invoice.class);
-
-             return Response.ok(invoices).build();
-
-
-        } catch (RepositoryException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        throw new NullPointerException("MISSING IMPLEMENTATION");
-
+        List<Invoice> invoices = billingDomain.getInvoiceRepository().findAll(Invoice.class);
+        return new InvoicesAsset(invoices, getMapper());
     }
 }

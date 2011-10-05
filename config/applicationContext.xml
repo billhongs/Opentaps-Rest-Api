@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:security="http://www.springframework.org/schema/security"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+
+    <!--############################## WINK CONFIGURATIONS #########################################################-->
+
+
+    <!--Resources definitions-->
+    <bean id="resource.wadl" class="org.opentaps.module.ws.rest.resources.Wadl"/>
+
+
+    <bean class="org.apache.wink.spring.Registrar">
+        <property name="instances">
+            <ref bean="resource.wadl"/>
+        </property>
+    </bean>
+
+
+    <bean id="customPropertiesFactory" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:rest-api.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="customConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="order" value="1"/>
+        <property name="propertiesArray">
+            <list>
+                <props>
+                    <prop key="wink.propertiesFactory">customPropertiesFactory</prop>
+                </props>
+            </list>
+        </property>
+    </bean>
+
+
+    <!--############################## DOZER CONFIGURATIONS #########################################################-->
 
     <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
 
     </bean>
-
-
-
 
 
 </beans>

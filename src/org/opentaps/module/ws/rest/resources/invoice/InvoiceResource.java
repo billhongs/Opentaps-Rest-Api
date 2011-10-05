@@ -5,6 +5,8 @@ import org.opentaps.domain.billing.BillingDomainInterface;
 import org.opentaps.domain.billing.invoice.Invoice;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.module.ws.rest.Context.OpentapsContext;
+import org.opentaps.module.ws.rest.errors.NoPermissionException;
+import org.opentaps.module.ws.rest.errors.RestApiException;
 import org.opentaps.module.ws.rest.resources.ApiAbstractResource;
 
 import javax.ws.rs.GET;
@@ -28,9 +30,12 @@ public class InvoiceResource extends ApiAbstractResource {
 
 
     @GET
-     @Produces( {MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
-    public InvoicesAsset getInvoices(@Context OpentapsContext opentapsContext) throws RepositoryException {
-//        Debug.logInfo("USERNAME ["+opentapsContext.getSecurityManager().getUsername()+"] ROLES ["+opentapsContext.getSecurityManager().getRoles()+"] ",MODULE);
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
+    public InvoicesAsset getInvoices(@Context OpentapsContext opentapsContext) throws RepositoryException, RestApiException {
+
+        //make sure we have the right permissions
+        super.checkPermission(opentapsContext.getSecurityManager(), "PERMISSION", "invoices");
+
         BillingDomainInterface billingDomain = opentapsContext.getDomainDirectory().getBillingDomain();
         List<Invoice> invoices = billingDomain.getInvoiceRepository().findAll(Invoice.class);
         return new InvoicesAsset(invoices, getMapper());

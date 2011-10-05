@@ -5,6 +5,7 @@ import org.opentaps.domain.billing.invoice.Invoice;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,6 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
  * To change this template use File | Settings | File Templates.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "invoice")
 public class InvoiceXml {
 
     @XmlElement(required = true)

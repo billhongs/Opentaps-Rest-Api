@@ -1,6 +1,9 @@
 package org.opentaps.module.ws.rest.resources;
 
 import org.dozer.Mapper;
+import org.ofbiz.base.util.Debug;
+import org.opentaps.module.ws.rest.errors.NoPermissionException;
+import org.opentaps.module.ws.rest.security.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,13 +13,17 @@ import org.dozer.Mapper;
  * To change this template use File | Settings | File Templates.
  */
 public class ApiAbstractResource {
+    private static final String MODULE = ApiAbstractResource.class.getName();
     protected Mapper mapper;
 
 
-    protected Object mapBean(Object source,Class destination){
-        return mapper.map(source,destination);
+    public void checkPermission(org.opentaps.module.ws.rest.security.SecurityManager securityManager, String minimumPermission,String resource) throws NoPermissionException {
+        Debug.logInfo("USERNAME [" + securityManager.getUsername() + "] ROLES [" + securityManager.getRoles() + "] ", MODULE);
+        //todo throw exception if the user does not have the right permission
+        if(true){
+            throw new NoPermissionException(resource);
+        }
     }
-
 
 //    GETTERS AND SETTERS
 

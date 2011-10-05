@@ -18,7 +18,8 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
     <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
     <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
-    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.invoice.InvoiceResource"  parent="generalResource"/>
+    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.invoice.InvoiceResource"
+          parent="generalResource"/>
 
     <!--Providers definitions-->
     <bean id="provider.generalRuntimeErrorException"
@@ -26,6 +27,8 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <bean id="provider.opentapsContextResoler" class="org.opentaps.module.ws.rest.provider.OpentapsContextResolver"/>
     <bean id="provider.commonExceptionMapper"
           class="org.opentaps.module.ws.rest.resources.common.CommonExceptionMapper"/>
+    <bean id="provider.restApiExceptionMapper"
+          class="org.opentaps.module.ws.rest.provider.RestApiErrorExceptionMapper"/>
 
 
     <bean class="org.apache.wink.spring.Registrar">
@@ -39,6 +42,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 <ref bean="provider.generalRuntimeErrorException"/>
                 <ref bean="provider.opentapsContextResoler"/>
                 <ref bean="provider.commonExceptionMapper"/>
+                <ref bean="provider.restApiExceptionMapper"/>
             </set>
         </property>
     </bean>

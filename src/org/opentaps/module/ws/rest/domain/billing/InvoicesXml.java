@@ -18,6 +18,7 @@ import java.util.List;
 @XmlRootElement(name = "invoices")
 public class InvoicesXml {
 
+    @XmlElementRef
     private Collection<InvoiceXml>invoiceXml;
 
     public InvoicesXml() {

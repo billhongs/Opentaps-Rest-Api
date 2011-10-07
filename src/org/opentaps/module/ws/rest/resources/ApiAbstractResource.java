@@ -20,7 +20,7 @@ public class ApiAbstractResource {
     public void checkPermission(org.opentaps.module.ws.rest.security.SecurityManager securityManager, String minimumPermission,String resource) throws NoPermissionException {
         Debug.logInfo("USERNAME [" + securityManager.getUsername() + "] ROLES [" + securityManager.getRoles() + "] ", MODULE);
         //todo throw exception if the user does not have the right permission
-        if(true){
+        if(false){
             throw new NoPermissionException(resource);
         }
     }

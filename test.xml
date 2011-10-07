@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Invoices xmlns="http://www.opentaps.org/module/ws/rest/domain/billing">
+    <invoices>
+        <invoiceId>SUAE2011-1</invoiceId>
+        <invoiceTypeId>SALES_INVOICE</invoiceTypeId>
+        <invoiceDate>2011-10-05T19:15:00.000+02:00</invoiceDate>
+        <invoiceItems>
+            <invoiceItemSeqId>00001</invoiceItemSeqId>
+            <productId>100019-01</productId>
+            <quantity>22.0</quantity>
+            <amount>100.0</amount>
+            <description>Aqua master gold /black watches for ladies</description>
+        </invoiceItems>
+    </invoices>
+    <invoices>
+        <invoiceId>SUAE2011-2</invoiceId>
+        <invoiceTypeId>SALES_INVOICE</invoiceTypeId>
+        <invoiceDate>2011-10-05T20:02:00.000+02:00</invoiceDate>
+        <invoiceItems>
+            <invoiceItemSeqId>00001</invoiceItemSeqId>
+            <productId>100014-01</productId>
+            <quantity>14.0</quantity>
+            <amount>10.0</amount>
+            <description>Invisible Shield by ZAGG (Apple Ipad Full Body)</description>
+        </invoiceItems>
+    </invoices>
+</Invoices>

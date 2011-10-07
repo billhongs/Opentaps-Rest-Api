@@ -25,6 +25,7 @@ public class OpentapsContextImpl implements OpentapsContext{
     private final static String DELEGATOR_NAME = "default";
     private static String DISPATCHER_NAME = "default";
     private DomainsDirectory domains;
+    private Infrastructure infrastructure;
 
     private org.opentaps.module.ws.rest.security.SecurityManager securityManager;
 
@@ -45,6 +46,14 @@ public class OpentapsContextImpl implements OpentapsContext{
             domains = domainsLoader.getDomainsDirectory();
         }
         return domains;
+    }
+
+    public Infrastructure getInfrastructure(){
+        if(infrastructure == null){
+            Delegator delegator = DelegatorFactory.getDelegator(DELEGATOR_NAME);
+            infrastructure = new Infrastructure(GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator));
+        }
+        return infrastructure;
     }
 
 }

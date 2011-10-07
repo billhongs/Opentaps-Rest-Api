@@ -2,6 +2,7 @@ package org.opentaps.module.ws.rest.Context;
 
 
 import org.opentaps.domain.DomainsDirectory;
+import org.opentaps.foundation.infrastructure.Infrastructure;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,5 +15,6 @@ public interface OpentapsContext {
 
     org.opentaps.module.ws.rest.security.SecurityManager getSecurityManager();
     DomainsDirectory getDomainDirectory();
+     public Infrastructure getInfrastructure();
 
 }

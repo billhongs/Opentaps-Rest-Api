@@ -58,11 +58,11 @@
          The default setting would work if you have checked out the financials module into your ofbiz/opentaps/ directory.
          It would NOT work if you checked it out somewhere else and symlinked to it in your opentaps/ directory.
          If you experience build problems, put the full path here -->
-        <property name="ofbiz.dir" value="../../"/> 
+        <property name="ofbiz.dir" value="../../"/>
         <property name="webapp.dir" value="webapp/${name}/WEB-INF"/>
 
         <tstamp>
-            <format property="build.id" pattern="yyyyMMddHHmmss" />
+            <format property="build.id" pattern="yyyyMMddHHmmss"/>
         </tstamp>
     </target>
 
@@ -140,16 +140,17 @@
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare,classpath">
-    	<javac debug="on" deprecation="on" destdir="${build.dir}/classes">
+        <javac debug="on" deprecation="on" destdir="${build.dir}/classes">
             <classpath>
                 <path refid="local.class.path"/>
             </classpath>
             <src path="${src.dir}"/>
         </javac>
-        
+
         <!-- also put the DTDs in the jar file... -->
         <copy todir="${build.dir}/classes">
-            <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+            <fileset dir="${src.dir}"
+                     includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
     </target>
 
@@ -173,9 +174,9 @@
 
     <target name="docs" depends="prepare-docs,classpath">
         <javadoc packagenames="com.integratingweb.rest.*"
-            classpathref="local.class.path"
-            destdir="${build.dir}/javadocs"
-            Windowtitle="Integrating Web SRL - ${desc}">
+                 classpathref="local.class.path"
+                 destdir="${build.dir}/javadocs"
+                 Windowtitle="Integrating Web SRL - ${desc}">
             <sourcepath path="${src.dir}"/>
         </javadoc>
     </target>
@@ -192,4 +193,27 @@
             <fileset dir="${build.dir}/lib"/>
         </copy>
     </target>
+
+    <!-- ================================================================== -->
+    <!-- Build XML Beans                                                    -->
+    <!-- ================================================================== -->
+
+    <target name="clean-generated-Bean">
+        <delete dir="src/org/opentaps/module/ws/rest/domain/generated"/>
+    </target>
+
+    <target name="bean-gen" >
+
+        <taskdef name="xjc" classname="com.sun.tools.xjc.XJC2Task">
+            <classpath>
+                <fileset dir="lib/dep" includes="*.jar"/>
+            </classpath>
+        </taskdef>
+        <xjc destdir="src" extension="true" removeOldOutput="yes">
+            <schema dir="schema" includes="*.xsd"/>
+            <binding dir="schema" includes=".xjb" />
+        </xjc>
+    </target>
+
+
 </project>

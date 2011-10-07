@@ -18,7 +18,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
     <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
     <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
-    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.invoice.InvoiceResource"
+    <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.billing.InvoiceResourceImp"
           parent="generalResource"/>
 
     <!--Providers definitions-->
@@ -74,6 +74,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <!--############################## DOZER CONFIGURATIONS #########################################################-->
 
     <bean id="mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+        <property name="mappingFiles" value="classpath:Billing_DMappings.xml"/>
 
     </bean>
 

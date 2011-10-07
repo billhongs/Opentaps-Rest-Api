@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice xmlns="http://www.opentaps.org/module/ws/rest/domain/billing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opentaps.org/module/ws/rest/domain/billing file:/Volumes/Work/Code/Git/Clients/souq/opentaps/rest-api/schema/billing.xsd">
+
+    <invoiceTypeId>SALES_INVOICE</invoiceTypeId>
+    <status>INVOICE_READY</status>
+    <partyIdFrom>Souq_uae</partyIdFrom>
+    <partyId>aabdullah</partyId>
+    <currencyUomId>AED</currencyUomId>
+    <invoiceDate>2011-10-05T19:15:00</invoiceDate>
+    <description>test invoice</description>
+
+</invoice>

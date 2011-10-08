@@ -9,13 +9,43 @@
         <stop-on-errors>true</stop-on-errors>
     </configuration>
 
+<!--BILLING MAPPINGS-->
 
     <mapping>
-        <class-a>org.opentaps.module.ws.rest.domain.billing.InvoiceBean</class-a>
-        <class-b>org.opentaps.domain.billing.invoice.Invoice</class-b>
+        <class-a>org.opentaps.domain.billing.invoice.Invoice</class-a>
+        <class-b>org.opentaps.module.ws.rest.domain.billing.InvoiceBean</class-b>
         <field>
-            <a is-accessible="true">invoiceItems</a>
-            <b get-method="getInvoiceItems" set-method="setInvoiceItems">invoiceItems</b>
+            <a get-method="getInvoiceItems" set-method="setInvoiceItems">invoiceItems</a>
+            <b is-accessible="true">invoiceItems</b>
+        </field>
+         <field>
+            <a get-method="getPayments">paymentApplications.payments</a>
+            <b is-accessible="true">payments</b>
+        </field>
+    </mapping>
+
+     <mapping>
+        <class-a>org.opentaps.module.ws.rest.domain.billing.InvoiceBean</class-a>
+        <class-b>org.opentaps.base.services.CreateInvoiceService</class-b>
+        <field>
+            <a>invoiceTypeId</a>
+            <b>inInvoiceTypeId</b>
+        </field>
+         <field>
+            <a>partyIdFrom</a>
+            <b>inPartyIdFrom</b>
+        </field>
+         <field>
+            <a>partyId</a>
+            <b>inPartyId</b>
+        </field>
+         <field>
+            <a>currencyUomId</a>
+            <b>inCurrencyUomId</b>
+        </field>
+         <field>
+            <a>status</a>
+            <b>inStatusId</b>
         </field>
     </mapping>
 

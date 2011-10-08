@@ -18,8 +18,13 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
     <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
     <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
+
+    <!--Billing Domain-->
     <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.billing.InvoiceResourceImp"
           parent="generalResource"/>
+    <bean id="resource.payment" class="org.opentaps.module.ws.rest.resources.billing.PaymentResourceImp"
+          parent="generalResource"/>
+
 
     <!--Providers definitions-->
     <bean id="provider.generalRuntimeErrorException"
@@ -38,6 +43,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 <ref bean="resource.product"/>
                 <ref bean="resource.leads"/>
                 <ref bean="resource.invoice"/>
+                <ref bean="resource.payment" />
 
                 <ref bean="provider.generalRuntimeErrorException"/>
                 <ref bean="provider.opentapsContextResoler"/>

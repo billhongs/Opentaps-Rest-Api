@@ -6,6 +6,7 @@ import org.opentaps.domain.billing.invoice.Invoice;
 import org.opentaps.foundation.entity.EntityNotFoundException;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.module.ws.rest.Context.OpentapsContext;
+import org.opentaps.module.ws.rest.asset.BeanAsset;
 import org.opentaps.module.ws.rest.asset.billing.InvoiceAsset;
 import org.opentaps.module.ws.rest.asset.billing.InvoicesAsset;
 import org.opentaps.module.ws.rest.domain.billing.InvoiceBean;
@@ -40,7 +41,7 @@ public class InvoiceResourceImp extends ApiAbstractResource implements InvoiceRe
         InvoicesBean invoicesBean = new InvoicesBean();
         for (Invoice invoice : invoices) {
             InvoiceBean invoiceBean = getMapper().map(invoice, InvoiceBean.class);
-            invoicesBean.getInvoices().add(invoiceBean);
+            invoicesBean.getInvoice().add(invoiceBean);
         }
         return new InvoicesAsset(invoicesBean);
     }
@@ -61,14 +62,7 @@ public class InvoiceResourceImp extends ApiAbstractResource implements InvoiceRe
         //make sure we have the right permissions
         super.checkPermission(opentapsContext.getSecurityManager(), "PERMISSION", "invoices");
 
-        //todo IW we may do this in the mapper conf
-        CreateInvoiceService createInvoiceService = new CreateInvoiceService();
-        InvoiceBean invoiceBean = invoiceAsset.getInvoice();
-
-        createInvoiceService.setInInvoiceTypeId(invoiceBean.getInvoiceTypeId());
-        createInvoiceService.setInPartyIdFrom(invoiceBean.getPartyIdFrom());
-        createInvoiceService.setInPartyId(invoiceBean.getPartyId());
-        createInvoiceService.setInCurrencyUomId(invoiceBean.getCurrencyUomId());
+        CreateInvoiceService createInvoiceService = getMapper().map(invoiceAsset.getInvoice(), CreateInvoiceService.class);
 
         createInvoiceService.setUser(opentapsContext.getSecurityManager().getOpentapsUser());
         createInvoiceService.runSync(opentapsContext.getInfrastructure());

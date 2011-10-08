@@ -198,11 +198,7 @@
     <!-- Build XML Beans                                                    -->
     <!-- ================================================================== -->
 
-    <target name="clean-generated-Bean">
-        <delete dir="src/org/opentaps/module/ws/rest/domain/generated"/>
-    </target>
-
-    <target name="bean-gen" >
+    <target name="bean-gen">
 
         <taskdef name="xjc" classname="com.sun.tools.xjc.XJC2Task">
             <classpath>
@@ -211,9 +207,8 @@
         </taskdef>
         <xjc destdir="src" extension="true" removeOldOutput="yes">
             <schema dir="schema" includes="*.xsd"/>
-            <binding dir="schema" includes=".xjb" />
+            <binding dir="schema" includes=".xjb"/>
         </xjc>
     </target>
-
 
 </project>

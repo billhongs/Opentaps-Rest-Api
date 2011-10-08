@@ -10,5 +10,18 @@
     <currencyUomId>AED</currencyUomId>
     <invoiceDate>2011-10-05T19:15:00</invoiceDate>
     <description>test invoice</description>
+    <invoiceItems>
+        <invoiceItemSeqId></invoiceItemSeqId>
+        <productId></productId>
+        <quantity></quantity>
+        <amount></amount>
+        <description></description>
+    </invoiceItems>
+    <payment>
+        <paymentId></paymentId>
+    </payment>
+    <payment>
+        <paymentId></paymentId>
+    </payment>
 
 </invoice>

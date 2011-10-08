@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rest-client version="2.3"><request><http-version>1.1</http-version><URL>http://localhost:8080/rest/api/invoices</URL><method>GET</method><auth-methods>BASIC</auth-methods><auth-preemptive>true</auth-preemptive><auth-username>admin</auth-username><auth-password>rO0ABXQACG9wZW50YXBz</auth-password></request></rest-client>

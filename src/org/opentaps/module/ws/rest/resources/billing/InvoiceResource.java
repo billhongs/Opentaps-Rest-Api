@@ -3,6 +3,7 @@ package org.opentaps.module.ws.rest.resources.billing;
 import org.apache.wink.common.annotations.Workspace;
 import org.opentaps.foundation.repository.RepositoryException;
 import org.opentaps.module.ws.rest.Context.OpentapsContext;
+import org.opentaps.module.ws.rest.asset.BeanAsset;
 import org.opentaps.module.ws.rest.asset.billing.InvoiceAsset;
 import org.opentaps.module.ws.rest.asset.billing.InvoicesAsset;
 import org.opentaps.module.ws.rest.errors.NoPermissionException;
@@ -37,5 +38,6 @@ public interface InvoiceResource {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
     InvoiceAsset createInvoice(InvoiceAsset invoiceAsset, @Context OpentapsContext opentapsContext) throws NoPermissionException, Exception;
 }

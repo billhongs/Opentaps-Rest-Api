@@ -13,5 +13,12 @@
         <amount>100.0</amount>
         <description>Aqua master gold /black watches for ladies</description>
     </invoiceItems>
-    <payments/>
+    <payments>
+        <payment>
+            <paymentId>10010</paymentId>
+        </payment>
+        <payment>
+            <paymentId>10020</paymentId>
+        </payment>
+    </payments>
 </invoice>

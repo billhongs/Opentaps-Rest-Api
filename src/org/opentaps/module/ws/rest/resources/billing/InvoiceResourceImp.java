@@ -1,5 +1,7 @@
 package org.opentaps.module.ws.rest.resources.billing;
 
+import org.opentaps.base.entities.Payment;
+import org.opentaps.base.entities.PaymentApplication;
 import org.opentaps.base.services.CreateInvoiceService;
 import org.opentaps.domain.billing.BillingDomainInterface;
 import org.opentaps.domain.billing.invoice.Invoice;
@@ -11,6 +13,7 @@ import org.opentaps.module.ws.rest.asset.billing.InvoiceAsset;
 import org.opentaps.module.ws.rest.asset.billing.InvoicesAsset;
 import org.opentaps.module.ws.rest.domain.billing.InvoiceBean;
 import org.opentaps.module.ws.rest.domain.billing.InvoicesBean;
+import org.opentaps.module.ws.rest.domain.billing.PaymentBean;
 import org.opentaps.module.ws.rest.errors.NoPermissionException;
 import org.opentaps.module.ws.rest.errors.RestApiException;
 import org.opentaps.module.ws.rest.resources.ApiAbstractResource;
@@ -88,7 +91,19 @@ public class InvoiceResourceImp extends ApiAbstractResource implements InvoiceRe
             //todo IW do something with this error
             e.printStackTrace();
         }
-        return new InvoiceAsset(getMapper().map(invoiceById, InvoiceBean.class));
+        InvoiceBean invoiceBean = getMapper().map(invoiceById, InvoiceBean.class);
+        try {
+            List<? extends PaymentApplication> paymentApplications = invoiceById.getPaymentApplications();
+            for (PaymentApplication paymentApplication : paymentApplications) {
+                Payment payment = paymentApplication.getPayment();
+                PaymentBean paymentBean = mapper.map(payment, PaymentBean.class);
+                invoiceBean.getPayments().getPayment().add(paymentBean);
+            }
+        } catch (RepositoryException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return new InvoiceAsset(invoiceBean);
 
     }
 }

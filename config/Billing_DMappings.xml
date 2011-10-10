@@ -19,7 +19,7 @@
             <b is-accessible="true">invoiceItems</b>
         </field>
          <field>
-            <a get-method="getPayments">paymentApplications.payments</a>
+            <a get-method="getPaymentApplications" type="iterate">payments</a>
             <b is-accessible="true">payments</b>
         </field>
     </mapping>

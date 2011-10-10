@@ -14,7 +14,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     </bean>
 
     <!--Resources definitions-->
-    <bean id="resource.wadl" class="org.opentaps.module.ws.rest.resources.Wadl"/>
+    <bean id="resource.wadl" class="org.opentaps.module.ws.rest.resources.Wadl" />
     <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
     <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
     <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
@@ -36,9 +36,10 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
           class="org.opentaps.module.ws.rest.provider.RestApiErrorExceptionMapper"/>
 
 
-    <bean class="org.apache.wink.spring.Registrar">
+    <bean id="registrar" class="org.apache.wink.spring.Registrar">
         <property name="instances">
             <set>
+                <ref bean="resource.wadl" />
                 <ref bean="resource.catalog"/>
                 <ref bean="resource.product"/>
                 <ref bean="resource.leads"/>

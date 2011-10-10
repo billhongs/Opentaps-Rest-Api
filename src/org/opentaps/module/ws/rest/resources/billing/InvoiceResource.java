@@ -20,7 +20,6 @@ import javax.ws.rs.core.MediaType;
  * Time: 4:28 PM
  */
 @Path(InvoiceResource.INVOICES_PATH)
-@Workspace(workspaceTitle = "REST API", collectionTitle = "Invoices")
 public interface InvoiceResource {
     String INVOICES_PATH = "invoices";
     String INVOICE_ID = "id";

@@ -1,5 +1,6 @@
 package org.opentaps.module.ws.rest.resources.billing;
 
+import org.apache.wink.common.annotations.Workspace;
 import org.opentaps.base.entities.Payment;
 import org.opentaps.base.entities.PaymentApplication;
 import org.opentaps.base.services.CreateInvoiceService;
@@ -30,6 +31,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
+@Workspace(workspaceTitle = "REST API", collectionTitle = "Invoices")
 public class InvoiceResourceImp extends ApiAbstractResource implements InvoiceResource {
     protected static String MODULE = InvoiceResourceImp.class.getName();
 

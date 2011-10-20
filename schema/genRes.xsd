@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0"
+    xmlns="http://www.opentaps.org/module/ws/rest/domain/response"
+    targetNamespace="http://www.opentaps.org/module/ws/rest/domain/response">
+
+
+    <xsd:element name="Response" type="response"/>
+    <xsd:complexType name="response">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <jaxb:class name="ResponseBean"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element name="payload"> </xsd:element>
+        </xsd:sequence>
+        <xsd:attribute name="stat" type="Status"/>
+    </xsd:complexType>
+
+    <xsd:simpleType name="Status">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ok"/>
+            <xsd:enumeration value="fail"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

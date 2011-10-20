@@ -86,4 +86,22 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     </bean>
 
 
+
+
+    <!--############################## DOZER CONFIGURATIONS #########################################################-->
+    <!--todo we should move this somehow-->
+
+
+    <bean id="resource.magento.products" class="org.opentaps.module.magento.ws.resources.MagentoProductResourceImp"
+          parent="generalResource"/>
+
+      <bean id="registrarMagento" class="org.apache.wink.spring.Registrar">
+        <property name="instances">
+            <set>
+                <ref bean="resource.magento.products" />
+            </set>
+        </property>
+    </bean>
+
+
 </beans>

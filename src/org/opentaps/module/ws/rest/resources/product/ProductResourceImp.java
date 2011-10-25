@@ -1,6 +1,7 @@
 package org.opentaps.module.ws.rest.resources.product;
 
 import org.apache.wink.common.annotations.Workspace;
+import org.ofbiz.base.util.UtilValidate;
 import org.opentaps.base.services.CreateProductService;
 import org.opentaps.domain.product.Product;
 import org.opentaps.domain.product.ProductDomainInterface;
@@ -50,8 +51,6 @@ public class ProductResourceImp extends ApiAbstractResource implements ProductRe
         //make sure we have the right permissions
         super.checkPermission(opentapsContext.getSecurityManager(), "PERMISSION", "products");
 
-        //todo IW check that the invoice id is populated
-
         return getProductById(opentapsContext, productId);
     }
 
@@ -59,6 +58,14 @@ public class ProductResourceImp extends ApiAbstractResource implements ProductRe
     public ProductAsset createProduct(ProductAsset productAsset, @Context OpentapsContext opentapsContext) throws NoPermissionException, Exception {
         //make sure we have the right permissions
         super.checkPermission(opentapsContext.getSecurityManager(), "PERMISSION", "products");
+
+
+        String productId = productAsset.getProduct().getProductId();
+        // if productId is null assign nextSeqId
+        if (UtilValidate.isEmpty(productId)) {
+            productId = opentapsContext.getDomainDirectory().getProductDomain().getProductRepository().getNextSeqId("Product");
+            productAsset.getProduct().setProductId(productId);
+        }
 
         CreateProductService createProductService = getMapper().map(productAsset.getProduct(), CreateProductService.class);
 

@@ -49,6 +49,28 @@
         </field>
     </mapping>
 
+    <mapping>
+        <class-a>org.opentaps.module.ws.rest.domain.product.ProductBean</class-a>
+        <class-b>org.opentaps.base.services.CreateProductService</class-b>
+        <field>
+            <a>productId</a>
+            <b>inProductId</b>
+        </field>
+        <field>
+            <a>internalName</a>
+            <b>inInternalName</b>
+        </field>
+         <field>
+            <a>productName</a>
+            <b>inProductName</b>
+        </field>
+         <field>
+            <a>productTypeId</a>
+            <b>inProductTypeId</b>
+        </field>
+
+    </mapping>
+
 
 
 </mappings>

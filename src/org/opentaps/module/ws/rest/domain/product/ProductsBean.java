@@ -6,7 +6,7 @@
 //
 
 
-package org.opentaps.module.ws.rest.domain.billing;
+package org.opentaps.module.ws.rest.domain.product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +16,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for invoices complex type.
+ * <p>Java class for products complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="invoices">
+ * &lt;complexType name="products">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.opentaps.org/module/ws/rest/domain/billing}invoice" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{http://www.opentaps.org/module/ws/rest/domain/product}product" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,40 +35,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "invoices", propOrder = {
-    "invoice"
+@XmlType(name = "products", propOrder = {
+    "product"
 })
-public class InvoicesBean {
+public class ProductsBean {
 
-    protected List<InvoiceBean> invoice;
+    protected List<ProductBean> product;
 
     /**
-     * Gets the value of the invoice property.
+     * Gets the value of the product property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the invoice property.
+     * This is why there is not a <CODE>set</CODE> method for the product property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getInvoice().add(newItem);
+     *    getProduct().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link InvoiceBean }
+     * {@link ProductBean }
      * 
      * 
      */
-    public List<InvoiceBean> getInvoice() {
-        if (invoice == null) {
-            invoice = new ArrayList<InvoiceBean>();
+    public List<ProductBean> getProduct() {
+        if (product == null) {
+            product = new ArrayList<ProductBean>();
         }
-        return this.invoice;
+        return this.product;
     }
 
 }

@@ -1,4 +1,4 @@
-package org.opentaps.module.ws.rest.resources.product;
+package org.opentaps.module.ws.rest.resources.product_old;
 
 import org.opentaps.module.ws.rest.resources.common.CommonResponse;
 

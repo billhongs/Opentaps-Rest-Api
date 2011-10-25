@@ -1,4 +1,4 @@
-package org.opentaps.module.ws.rest.resources.product;
+package org.opentaps.module.ws.rest.resources.product_old;
 
 import org.apache.wink.common.annotations.Asset;
 import org.apache.wink.common.model.synd.*;

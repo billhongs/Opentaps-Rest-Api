@@ -5,5 +5,5 @@
 // Generated on: 2011.10.25 at 02:14:00 PM CEST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.opentaps.org/module/ws/rest/domain/response", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.opentaps.module.ws.rest.domain.response;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.opentaps.org/module/ws/rest/domain/product", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.opentaps.module.ws.rest.domain.product;

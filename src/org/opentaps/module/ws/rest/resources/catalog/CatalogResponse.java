@@ -1,7 +1,6 @@
 package org.opentaps.module.ws.rest.resources.catalog;
 
 import org.opentaps.module.ws.rest.resources.common.CommonResponse;
-import org.opentaps.module.ws.rest.resources.product.ProductBean;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;

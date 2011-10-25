@@ -1,9 +1,8 @@
-package org.opentaps.module.ws.rest.resources.product;
+package org.opentaps.module.ws.rest.resources.product_old;
 
 import org.apache.wink.common.annotations.Asset;
 import org.opentaps.domain.product.Product;
 
-import javax.ws.rs.Produces;
 import java.util.List;
 import java.util.ArrayList;
 

@@ -1,40 +1,22 @@
-package org.opentaps.module.ws.rest.resources.product;
+package org.opentaps.module.ws.rest.resources.product_old;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.service.GenericServiceException;
 import org.opentaps.module.ws.rest.resources.common.CommonResource;
 
 import org.apache.wink.common.annotations.Workspace;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.LocalDispatcher;
 
-import org.opentaps.foundation.entity.EntityFieldInterface;
-
-import org.opentaps.base.entities.UserLogin;
 import org.opentaps.base.services.CreateProductService;
-import org.opentaps.base.services.UserLoginService;
 import org.opentaps.domain.product.Product;
 import org.opentaps.foundation.entity.EntityNotFoundException;
-import org.opentaps.foundation.infrastructure.Infrastructure;
-import org.opentaps.foundation.infrastructure.User;
 import org.opentaps.foundation.repository.RepositoryException;
-import org.opentaps.foundation.repository.ofbiz.Repository;
 import org.opentaps.foundation.service.ServiceException;
 import org.opentaps.module.ws.rest.resources.common.CommonResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @Path(ProductsResource.PRODUCTS_URL)

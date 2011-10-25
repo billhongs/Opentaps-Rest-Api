@@ -16,12 +16,17 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <!--Resources definitions-->
     <bean id="resource.wadl" class="org.opentaps.module.ws.rest.resources.Wadl" />
     <bean id="resource.catalog" class="org.opentaps.module.ws.rest.resources.catalog.CatalogResponse"/>
-    <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductsResource"/>
+    <!--<bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product_old.ProductsResource"/>-->
     <bean id="resource.leads" class="org.opentaps.module.ws.rest.resources.lead.LeadsResource"/>
 
     <!--Billing Domain-->
     <bean id="resource.invoice" class="org.opentaps.module.ws.rest.resources.billing.InvoiceResourceImp"
           parent="generalResource"/>
+
+    <!-- Product Domani -->
+    <bean id="resource.product" class="org.opentaps.module.ws.rest.resources.product.ProductResourceImp"
+          parent="generalResource"/>
+
     <bean id="resource.payment" class="org.opentaps.module.ws.rest.resources.billing.PaymentResourceImp"
           parent="generalResource"/>
 

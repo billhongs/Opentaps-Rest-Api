@@ -37,7 +37,7 @@ public interface ProductResource {
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_JSON})
-    ProductAsset createProduct(ProductAsset productAsset, @Context OpentapsContext opentapsContext) throws NoPermissionException, Exception;
+    ProductAsset createProduct(ProductAsset productAsset, @Context OpentapsContext opentapsContext) throws Exception;
 
 
 

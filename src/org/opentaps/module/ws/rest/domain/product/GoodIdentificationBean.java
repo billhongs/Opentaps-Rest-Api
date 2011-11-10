@@ -6,7 +6,7 @@
 //
 
 
-package org.opentaps.module.ws.rest.domain.billing;
+package org.opentaps.module.ws.rest.domain.product;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -15,20 +15,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for invoiceItem complex type.
+ * <p>Java class for goodIdentification complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="invoiceItem">
+ * &lt;complexType name="goodIdentification">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="invoiceItemSeqId" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="goodIdentificationTypeId" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="productId" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="quantity" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="amount" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="idValue" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,46 +36,42 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "invoiceItem", propOrder = {
-    "invoiceItemSeqId",
+@XmlType(name = "goodIdentification", propOrder = {
+    "goodIdentificationTypeId",
     "productId",
-    "quantity",
-    "amount",
-    "description"
+    "idValue"
 })
-public class InvoiceItemBean {
+public class GoodIdentificationBean {
 
     @XmlElement(required = true)
-    protected String invoiceItemSeqId;
+    protected String goodIdentificationTypeId;
     @XmlElement(required = true)
     protected String productId;
-    protected float quantity;
-    protected float amount;
     @XmlElement(required = true)
-    protected String description;
+    protected String idValue;
 
     /**
-     * Gets the value of the invoiceItemSeqId property.
+     * Gets the value of the goodIdentificationTypeId property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getInvoiceItemSeqId() {
-        return invoiceItemSeqId;
+    public String getGoodIdentificationTypeId() {
+        return goodIdentificationTypeId;
     }
 
     /**
-     * Sets the value of the invoiceItemSeqId property.
+     * Sets the value of the goodIdentificationTypeId property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setInvoiceItemSeqId(String value) {
-        this.invoiceItemSeqId = value;
+    public void setGoodIdentificationTypeId(String value) {
+        this.goodIdentificationTypeId = value;
     }
 
     /**
@@ -105,59 +99,27 @@ public class InvoiceItemBean {
     }
 
     /**
-     * Gets the value of the quantity property.
-     * 
-     */
-    public float getQuantity() {
-        return quantity;
-    }
-
-    /**
-     * Sets the value of the quantity property.
-     * 
-     */
-    public void setQuantity(float value) {
-        this.quantity = value;
-    }
-
-    /**
-     * Gets the value of the amount property.
-     * 
-     */
-    public float getAmount() {
-        return amount;
-    }
-
-    /**
-     * Sets the value of the amount property.
-     * 
-     */
-    public void setAmount(float value) {
-        this.amount = value;
-    }
-
-    /**
-     * Gets the value of the description property.
+     * Gets the value of the idValue property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDescription() {
-        return description;
+    public String getIdValue() {
+        return idValue;
     }
 
     /**
-     * Sets the value of the description property.
+     * Sets the value of the idValue property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDescription(String value) {
-        this.description = value;
+    public void setIdValue(String value) {
+        this.idValue = value;
     }
 
 }

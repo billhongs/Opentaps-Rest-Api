@@ -68,6 +68,14 @@
             <a>productTypeId</a>
             <b>inProductTypeId</b>
         </field>
+                 <field>
+            <a>description</a>
+            <b>inDescription</b>
+        </field>
+                 <field>
+            <a>longDescription</a>
+            <b>inLongDescription</b>
+        </field>
 
     </mapping>
 
